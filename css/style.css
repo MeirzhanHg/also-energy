@@ -95,6 +95,7 @@ h6 {
    min-height: 100%;
    overflow: hidden;
 }
+
 .container {
    max-width: 1200px;
    padding: 0 15px;
@@ -276,14 +277,49 @@ body .menu__item .menu__arrow {
 
 }
 
+.header__content {
+   position: relative;
+   z-index: 10;
+}
+
 .hero__body {
    position: relative;
    z-index: 4;
    display: flex;
    align-items: center;
    margin: 0 -20px;
+   height: 450px;
 }
 
+.main-slider-btn {
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   width: 40px;
+   height: 40px;
+   border: none;
+   padding: 0;
+   z-index: 5;
+   background-color: transparent;
+}
+
+.main-prev-btn {
+   left: -160px;
+
+   transform: rotate(180deg);
+}
+
+.main-next-btn {
+   right: -160px;
+
+}
+
+.main-prev-btn:hover {
+
+}
+.main-next-btn:hover {
+
+}
 .hero__column {
    padding: 0 20px;
 }
@@ -327,10 +363,12 @@ body .menu__item .menu__arrow {
 .hero__btn:hover {
    background-color: #17433c;
 }
+
 .hero__img {
    max-width: 483px;
    max-height: 100%;
 }
-.hero__img img{
-  
+
+.hero__img img {
+   width: 483px;
 }

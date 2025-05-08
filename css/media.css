@@ -119,6 +119,7 @@
 
    .hero__body {
       margin: 0px;
+      height: 100%;
    }
 
    .hero__column {
@@ -165,6 +166,7 @@
    .hero__body {
       justify-content: center;
       flex-wrap: wrap;
+      height: 545px;
    }
    .hero__title {
       max-width: 100%;
