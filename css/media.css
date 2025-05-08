@@ -32,12 +32,44 @@
    .hero__column {
       padding: 0;
    }
+
+   .products__row {
+      margin: 70px -15px 0 -15px;
+   }
+
+   .products__column {
+      padding: 0 15px;
+   }
+
+   .products__label {
+      width: 190px;
+      font-weight: 500;
+   }
+
+   .products__info {
+      width: 350px;
+   }
+
+   .products__descr {
+      font-size: 16px;
+   }
 }
 
 @media (max-width: 1150px) {
-   .hero__body {
-      /* flex-wrap: wrap; */
+   .products__title {
+      font-size: 42px;
    }
+
+   .products__label {
+      font-size: 14px;
+      width: 170px;
+   }
+
+   .products__info {
+      width: 300px;
+   }
+
+   .hero__body {}
 
    .header_wrapper {
       flex-wrap: wrap;
@@ -109,6 +141,28 @@
 
 
 @media (max-width: 992px) {
+   .products__title {
+      font-size: 36px;
+   }
+
+   .products__row {
+      flex-wrap: wrap;
+      justify-content: center;
+   }
+
+   .products__column-1 {
+      margin-bottom: 40px;
+   }
+
+   .products__label {
+      font-size: 14px;
+      width: 220px;
+   }
+
+   .products__info {
+      width: 100%;
+   }
+
    .page {
       padding: 212px 0px 0px 0px;
    }
@@ -150,10 +204,50 @@
    }
 }
 
+@media (max-width: 852px) {
+   .products__items {
+      flex-wrap: wrap;
+   }
+   .products__item  {
+      flex: 0 1 50%;
+   }
+   .products__item-3 {
+      display: none;
+   }
+   .products__label {
+      width: 290px;
+   }
+}
+
 
 /* HEADER MENU ADAPTIVE */
 
 @media (max-width: 767px) {
+   .products-page {
+      padding: 60px 0;
+   }
+   .products__items {
+      flex-wrap: wrap;
+      margin: 0px -10px 0px -10px;
+   }
+   .products__item  {
+      padding: 0 10px;
+      flex: 1 1 100%;
+      margin-bottom: 30px;
+   }
+   .products__item-3 {
+      display: none;
+   }
+   .products__title {
+      font-size: 29px;
+   }
+   .products__label {
+      width: 350px;
+   }
+   .products__text{
+      font-size: 16px;
+      line-height: 1.4em;
+   }
    .logo_img {
       width: 70px;
    }
@@ -166,11 +260,13 @@
       padding: 70px 0;
       background: url('../img/bg.jpeg') 0 0/auto 100% no-repeat;
    }
+
    .hero__body {
       justify-content: center;
       flex-wrap: wrap;
       height: 545px;
    }
+
    .hero__title {
       max-width: 100%;
       margin: 0px 0px 35px 0px;
@@ -190,6 +286,7 @@
    .hero__btn {
       padding: 10px 20px;
    }
+
    .hero__img img {
       width: 283px;
    }
@@ -298,10 +395,10 @@
       position: fixed;
       top: 0px;
       left: -100%;
-      width: 65%;
+      width: 80%;
       height: 100%;
       background-color: rgb(255, 255, 255);
-      padding: 100px 30px 30px 20px;
+      padding: 100px 20px 30px 15px;
       transition: left 0.3s ease 0s;
       overflow: auto;
    }
@@ -340,7 +437,7 @@
    }
 
    .menu__link {
-      font-size: 18px;
+      font-size: 16px;
       color: #000;
    }
 
@@ -350,6 +447,7 @@
       flex: 1 1 100%;
       margin: 15px 0px 0px 0px;
       display: none;
+      padding: 15px 15px 15px 10px;
    }
 
    .sub-menu__link {

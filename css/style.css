@@ -157,7 +157,7 @@ h6 {
    left: 0;
    background-color: #fff;
    padding: 15px;
-   min-width: 250px;
+   min-width: 350px;
 }
 
 .sub-menu__item {
@@ -407,13 +407,13 @@ body .menu__item .menu__arrow {
    top: 10px;
    left: 50%;
    transform: translateX(-50%);
-   z-index: 9;
+   z-index: 6;
 }
 
 .products__ico {
    background: #f5f5f5;
    padding: 0 20px;
-   z-index: 10;
+   z-index: 7;
    display: inline-block;
    position: relative;
    top: -3px;
@@ -476,6 +476,10 @@ body .menu__item .menu__arrow {
    color: #000;
 }
 
+.products__link:hover {
+   text-decoration: underline;
+}
+
 .products__link::after {
    content: "";
    display: block;
@@ -522,7 +526,12 @@ body .menu__item .menu__arrow {
    object-fit: contain;
 }
 
+.products__item:hover .products__label {
+   text-decoration: underline;
+}
+
 .products__label {
+   color: #000;
    font-size: 16px;
    font-weight: bold;
    text-align: center;
