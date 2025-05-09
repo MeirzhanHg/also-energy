@@ -254,16 +254,25 @@
       padding: 0px 0px 60% 0px;
    }
    .project__info {
-      padding: 20px 20px 15px 20px;
+      padding: 30px 20px 15px 20px;
    }
    .project__item {
       order: 1;
+   }
+   .project__button {
+      margin-top: 20px;
    }
    .substation__body {
       padding: 60px 0px 60px 0px;  
    }
    .substation__title {
-      font-size: 36px;
+      font-size: 32px;
+   }
+   .substation__text {
+      line-height: 1.4em;
+   }
+   .substation__ico::after {
+      width: 300px;
    }
    .products-page {
       padding: 60px 0;
