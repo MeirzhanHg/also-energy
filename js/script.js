@@ -134,12 +134,12 @@ const sliders = (slides, dir, prev, next) => {
 sliders('.slider-item', '', '.main-prev-btn', '.main-next-btn')
 
 // Много слайдера
-function sliderMore(containerSlider, trackSlider, prevSlide, nextSlide, sliders) {
+function sliderMore(containerSlider, trackSlider, prevSlide, nextSlide, sliders, slideShowDefault, slidesShowWindow) {
 
     let position = 0
-    let slidesToShow = 3
+    let slidesToShow = slideShowDefault
     if (window.innerWidth <= 1100) {
-        slidesToShow = 2
+        slidesToShow = slidesShowWindow
     }
     if (window.innerWidth <= 600) {
         slidesToShow = 1
@@ -242,19 +242,270 @@ function sliderMore(containerSlider, trackSlider, prevSlide, nextSlide, sliders)
     checkBtns()
 }
 
-sliderMore('.slider-container', '.slider-track', '.prev-btn', '.next-btn', '.box__item')
+sliderMore('.slider-container', '.slider-track', '.prev-btn', '.next-btn', '.box__item', 3, 2)
 
+
+
+
+function sliderCont(sliderContent, sliderListElem, trackSlider, slideItem, arrow, prevBtn, nextBtn) {
+
+    let line = document.querySelector('.arrow_absolute')
+    let curWidth = 0
+
+    let slider = document.querySelector(sliderContent),
+        sliderList = slider.querySelector(sliderListElem),
+        
+        sliderTrack = slider.querySelector(trackSlider),
+
+        slides = slider.querySelectorAll(slideItem),
+        slidesCount = slides.length,
+        
+        arrows = document.querySelector(arrow),
+        prev = document.querySelector(prevBtn),
+        next = document.querySelector(nextBtn),
+
+        slideWidth = slides[0].offsetWidth,
+        slideIndex = 0,
+        posInit = 0,
+
+        posX1 = 0,
+        posX2 = 0,
+        posY1 = 0,
+        posY2 = 0,
+
+        posFinal = 0,
+
+
+        isSwipe = false,
+        isScroll = false,
+        allowSwipe = true,
+        transition = true,
+
+        nextTrf = 0,
+        prevTrf = 0,
+        lastTrf = (slidesCount - 1) * slideWidth,
+        posThreshold = slides[0].offsetWidth * 0.35,
+
+        trfRegExp = /([-0-9.]+(?=px))/,
+        swipeStartTime,
+        swipeEndTime,
+
+        getEvent = function () {
+            return (event.type.search('touch') !== -1) ? event.touches[0] : event
+        },
+
+        slide = function () {
+            if (document.querySelector('.project_slide-arrow')) {
+
+
+                curWidth = 100 / (slides.length - slideIndex)
+                line.style.width = curWidth + '%'
+            }
+
+            if (transition) {
+                sliderTrack.style.transition = 'transform .5s'
+            }
+            sliderTrack.style.transform = `translate3d(-${slideIndex * slideWidth}px, 0px, 0px)`
+
+            prev.classList.toggle('disabled', slideIndex === 0)
+            next.classList.toggle('disabled', slideIndex === (slidesCount - 1))
+
+
+        },
+
+        swipeStart = function () {
+            let evt = getEvent()
+
+
+
+            if (allowSwipe) {
+
+                swipeStartTime = Date.now()
+
+                transition = true
+
+                nextTrf = (slideIndex + 1) * -slideWidth
+                prevTrf = (slideIndex - 1) * -slideWidth
+
+                posInit = posX1 = evt.clientX
+
+                // console.log("swipeStart posInit = " +  posInit);
+                // console.log("swipeStart posX1 = " + posX1);
+
+                posY1 = evt.clientY
+
+                // console.log("swipeStart posY1 = " + posY1);
+
+                sliderTrack.style.transition = ''
+
+                // при движении пальцем по экрану — touchmove (mousemove)
+                document.addEventListener('touchmove', swipeAction)
+                document.addEventListener('mousemove', swipeAction)
+
+                // при отпускании пальца — touchend (mouseup)
+                document.addEventListener('touchend', swipeEnd)
+                document.addEventListener('mouseup', swipeEnd)
+
+                sliderList.classList.remove('grab')
+                sliderList.classList.add('grabbing')
+            }
+        },
+
+        swipeAction = function () {
+
+            let evt = getEvent(),
+                style = sliderTrack.style.transform,
+                transform = +style.match(trfRegExp)[0]
+
+            posX2 = posX1 - evt.clientX
+            posX1 = evt.clientX
+
+            posY2 = posY1 - evt.clientY
+            posY1 = evt.clientY
+
+            if (!isSwipe && !isScroll) {
+                let posY = Math.abs(posY2)
+                if (posY > 7 || posX2 === 0) {
+                    isScroll = true
+                    allowSwipe = false
+                } else if (posY < 7) {
+                    isSwipe = true
+                }
+            }
+
+            if (isSwipe) {
+                if (slideIndex === 0) {
+                    if (posInit < posX1) {
+                        setTransform(transform, 0)
+                        return
+                    } else {
+                        allowSwipe = true
+                    }
+                }
+
+                // запрет ухода вправо на последнем слайде
+                if (slideIndex === slidesCount - 1) {
+                    if (posInit > posX1) {
+                        setTransform(transform, lastTrf)
+                        return
+                    } else {
+                        allowSwipe = true
+                    }
+                }
+
+                if (posInit > posX1 && transform < nextTrf || posInit < posX1 && transform > prevTrf) {
+                    reachEdge()
+                    return
+                }
+
+                sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`
+            }
+
+
+        },
+
+        swipeEnd = function () {
+            posFinal = posInit - posX1
+
+            isScroll = false
+            isSwipe = false
+
+            // при движении пальцем по экрану — touchmove (mousemove)
+            document.removeEventListener('touchmove', swipeAction)
+            document.removeEventListener('mousemove', swipeAction)
+
+
+            // при отпускании пальца — touchend (mouseup)
+            document.removeEventListener('touchend', swipeEnd)
+            document.removeEventListener('mouseup', swipeEnd)
+
+
+            sliderList.classList.add('grab')
+            sliderList.classList.remove('grabbing')
+
+            if (allowSwipe) {
+                swipeEndTime = Date.now()
+                if (Math.abs(posFinal) > posThreshold || swipeEndTime - swipeStartTime < 300) {
+                    if (posInit < posX1) {
+                        slideIndex--
+                    } else if (posInit > posX1) {
+                        slideIndex++
+                    }
+                }
+
+                if (posInit !== posX1) {
+                    allowSwipe = false
+                    slide()
+                } else {
+                    allowSwipe = true
+                }
+
+            } else {
+                allowSwipe = true
+            }
+        },
+
+        setTransform = function (transform, comapreTransform) {
+            if (transform >= comapreTransform) {
+                if (transform > comapreTransform) {
+                    sliderTrack.style.transform = `translate3d(${comapreTransform}px, 0px, 0px)`
+                }
+            }
+
+            allowSwipe = false
+
+        },
+
+        reachEdge = function () {
+            transition = false
+            swipeEnd()
+            allowSwipe = true
+        }
+
+    slide()
+
+    console.log(slides)
+    sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)'
+    sliderList.classList.add('grab')
+
+    sliderTrack.addEventListener('transitionend', () => allowSwipe = true)
+
+    // При касании пальцем срабатывает событие touchstart
+    slider.addEventListener('touchstart', swipeStart)
+
+    // при зажатии мыши mousedown
+    slider.addEventListener('mousedown', swipeStart)
+
+    arrows.addEventListener('click', function () {
+
+        let target = event.target
+
+        if (target.classList.contains(nextBtn.slice(1))) {
+            slideIndex++
+        } else if (target.classList.contains(prevBtn.slice(1))) {
+            slideIndex--
+        } else {
+            return
+        }
+
+        slide()
+    })
+}
+
+sliderCont('.certificate__wrapper', '.slider-certificate', '.slider-track-certificate', '.certificate-box', '.certificate__btns', '.prev-btn-certificate', '.next-btn-certificate')
+
+// sliderCont('.slider-featured', '.featured-slider-list', '.featured-slider-track', '.featured-inner', '.featured-arrow', '.prev-featured', '.next-featured')
 
 // СОКРАТИТЬ ТЕКСТ
 
 function truncateText(selector, maxLength) {
-  const elements = document.querySelectorAll(selector);
-  elements.forEach(el => {
-    const text = el.textContent.trim();
-    if (text.length > maxLength) {
-      el.textContent = text.slice(0, maxLength) + '...';
-    }
-  });
+    const elements = document.querySelectorAll(selector)
+    elements.forEach(el => {
+        const text = el.textContent.trim()
+        if (text.length > maxLength) {
+            el.textContent = text.slice(0, maxLength) + '...'
+        }
+    })
 }
 
 
