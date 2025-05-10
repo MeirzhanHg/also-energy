@@ -111,13 +111,13 @@ const sliders = (slides, dir, prev, next) => {
             paused = setInterval(function () {
                 plusSlides(1)
                 items[slideIndex - 1].classList.add('slideInDown')
-            }, 4000)
+            }, 5000)
         } else {
             paused = setInterval(function () {
                 plusSlides(1)
                 items[slideIndex - 1].classList.remove('slideInLeft')
                 items[slideIndex - 1].classList.add('slideInRight')
-            }, 4000)
+            }, 5000)
         }
     }
     activateAnimation()
@@ -254,12 +254,12 @@ function sliderCont(sliderContent, sliderListElem, trackSlider, slideItem, arrow
 
     let slider = document.querySelector(sliderContent),
         sliderList = slider.querySelector(sliderListElem),
-        
+
         sliderTrack = slider.querySelector(trackSlider),
 
         slides = slider.querySelectorAll(slideItem),
         slidesCount = slides.length,
-        
+
         arrows = document.querySelector(arrow),
         prev = document.querySelector(prevBtn),
         next = document.querySelector(nextBtn),
@@ -494,7 +494,41 @@ function sliderCont(sliderContent, sliderListElem, trackSlider, slideItem, arrow
 
 sliderCont('.certificate__wrapper', '.slider-certificate', '.slider-track-certificate', '.certificate-box', '.certificate__btns', '.prev-btn-certificate', '.next-btn-certificate')
 
-// sliderCont('.slider-featured', '.featured-slider-list', '.featured-slider-track', '.featured-inner', '.featured-arrow', '.prev-featured', '.next-featured')
+const images = () => {
+    const imgPopup = document.createElement('div'),
+        workSection = document.querySelector('.certificate-page'),
+        bigImage = document.createElement('img')
+
+    imgPopup.classList.add('popup')
+    workSection.appendChild(imgPopup)
+
+    imgPopup.style.justifyContent = 'center'
+    imgPopup.style.alignItems = 'center'
+    imgPopup.style.display = 'none'
+
+    imgPopup.appendChild(bigImage)
+
+    workSection.addEventListener('click', (e) => {
+        e.preventDefault()
+        
+        let target = e.target
+        console.log(target);
+
+        if (target && target.classList.contains('preview')) {
+            imgPopup.style.display = 'flex'
+            const path = target.getAttribute('src')
+            bigImage.setAttribute('src', path)
+            document.body.style.overflow = 'hidden'
+        }
+
+        if (target && target.matches('div.popup')) {
+            imgPopup.style.display = 'none'
+            document.body.style.overflow = ''
+        }
+    })
+}
+
+images()
 
 // СОКРАТИТЬ ТЕКСТ
 

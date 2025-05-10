@@ -180,7 +180,7 @@
 
 
 @media (max-width: 992px) {
-    .certificate__wrapper {
+   .certificate__wrapper {
       max-width: 100%;
       width: 360px;
    }
@@ -188,12 +188,15 @@
    .certificate__column {
       flex-wrap: wrap;
    }
+
    .certificate__row-1 {
       margin: 0 auto 25px auto;
    }
+
    .certificate__row-2 {
       flex: 1 1 100%;
    }
+
    .project__title {
       font-size: 24px;
    }
@@ -270,16 +273,20 @@
 /* HEADER MENU ADAPTIVE */
 
 @media (max-width: 767px) {
+   .popup {
+   
+      }
+   
+
    .certificate__wrapper {
       width: 260px;
    }
 
-  .certificate__title {
-   font-size: 28px;
-  }
-
-   .certificate__row-1 {
+   .certificate__title {
+      font-size: 28px;
    }
+
+   .certificate__row-1 {}
 
    .certificate__row {
       /* flex: 0 1 100%; */
