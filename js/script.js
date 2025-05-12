@@ -547,80 +547,81 @@ truncateText('.products__label', 95)
 // Валидация формы
 
 function validateForm(formSelector) {
-    const form = document.querySelector(formSelector);
-    if (!form) return;
+    const form = document.querySelector(formSelector)
+    if (!form) return
 
     form.addEventListener('submit', function (e) {
-        e.preventDefault();
+        e.preventDefault()
 
-        const name = form.querySelector('input[name="name"]');
-        const phone = form.querySelector('input[name="phone"]');
+        const name = form.querySelector('input[name="name"]')
+        const phone = form.querySelector('input[name="phone"]')
 
-        let valid = true;
-        let errors = [];
+        let valid = true
+        let errors = []
 
         // Очистка старых ошибок
-        form.querySelectorAll('.error-message').forEach(el => el.remove());
+        form.querySelectorAll('.error-message').forEach(el => el.remove())
 
         // Name
         if (!name.value || name.value.trim().length < 2) {
-            valid = false;
-            showError(name, name.value ? 'Введите минимум 2 символа' : 'Пожалуйста, введите свое имя');
+            valid = false
+            showError(name, name.value ? 'Введите минимум 2 символа' : 'Пожалуйста, введите свое имя')
         }
 
         // Phone
         if (!phone.value || !/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(phone.value)) {
-            valid = false;
-            showError(phone, 'Пожалуйста, введите свой номер телефона');
+            valid = false
+            showError(phone, 'Пожалуйста, введите свой номер телефона')
         }
 
-    
-    });
+
+    })
 
     function showError(input, message) {
-        const error = document.createElement('div');
-        error.className = 'error-message';
-        error.style.color = 'red';
-        error.style.fontSize = '14px';
-        error.style.marginTop = '5px';
-        error.textContent = message;
-        input.parentNode.appendChild(error);
+        const error = document.createElement('div')
+        error.className = 'error-message'
+        error.style.color = 'red'
+        error.style.fontSize = '14px'
+        error.style.marginTop = '5px'
+        error.textContent = message
+        input.parentNode.appendChild(error)
     }
 }
 
 // Подключаем к формам
-validateForm('#consultation-form');
+validateForm('#consultation-form')
+validateForm('#modal-form');
 
 // Маска для телефона
 function maskPhone(inputSelector) {
-    const phoneInputs = document.querySelectorAll(inputSelector);
+    const phoneInputs = document.querySelectorAll(inputSelector)
 
     phoneInputs.forEach(input => {
-        input.addEventListener('input', onInput);
-        input.addEventListener('focus', onInput);
-        input.addEventListener('blur', onBlur);
-        input.addEventListener('keydown', onKeyDown); // Обработчик для backspace
-    });
+        input.addEventListener('input', onInput)
+        input.addEventListener('focus', onInput)
+        input.addEventListener('blur', onBlur)
+        input.addEventListener('keydown', onKeyDown) // Обработчик для backspace
+    })
 
     function onInput(e) {
-        let input = e.target;
-        let value = input.value.replace(/\D/g, ''); // Убираем все нецифровые символы
+        let input = e.target
+        let value = input.value.replace(/\D/g, '') // Убираем все нецифровые символы
 
-        if (value.startsWith('8')) value = '7' + value.slice(1); // Если начинается с 8, заменяем на 7
-        if (!value.startsWith('7')) value = '7' + value; // Если не начинается с 7, добавляем 7
+        if (value.startsWith('8')) value = '7' + value.slice(1) // Если начинается с 8, заменяем на 7
+        if (!value.startsWith('7')) value = '7' + value // Если не начинается с 7, добавляем 7
 
-        let result = '+7 ('; // Маска
-        if (value.length > 1) result += value.slice(1, 4);
-        if (value.length >= 4) result += ') ' + value.slice(4, 7);
-        if (value.length >= 7) result += '-' + value.slice(7, 9);
-        if (value.length >= 9) result += '-' + value.slice(9, 11);
+        let result = '+7 (' // Маска
+        if (value.length > 1) result += value.slice(1, 4)
+        if (value.length >= 4) result += ') ' + value.slice(4, 7)
+        if (value.length >= 7) result += '-' + value.slice(7, 9)
+        if (value.length >= 9) result += '-' + value.slice(9, 11)
 
-        input.value = result;
+        input.value = result
     }
 
     function onBlur(e) {
-        let input = e.target;
-        const digits = input.value.replace(/\D/g, ''); // Получаем только цифры
+        let input = e.target
+        const digits = input.value.replace(/\D/g, '') // Получаем только цифры
 
         // Если длина меньше 10 символов (не полный номер), не очищаем поле
         if (digits.length < 10) {
@@ -629,22 +630,22 @@ function maskPhone(inputSelector) {
     }
 
     function onKeyDown(e) {
-        let input = e.target;
+        let input = e.target
         if (e.key === "Backspace") {
-            let value = input.value;
-            const cursorPosition = input.selectionStart;
+            let value = input.value
+            const cursorPosition = input.selectionStart
 
             // Убираем дефисы, пробелы и скобки при backspace
             if (value[cursorPosition - 1] === '-' || value[cursorPosition - 1] === ' ' || value[cursorPosition - 1] === '(' || value[cursorPosition - 1] === ')') {
-                input.value = value.slice(0, cursorPosition - 1) + value.slice(cursorPosition);
-                input.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
-                e.preventDefault(); // Предотвращаем стандартное поведение backspace
+                input.value = value.slice(0, cursorPosition - 1) + value.slice(cursorPosition)
+                input.setSelectionRange(cursorPosition - 1, cursorPosition - 1)
+                e.preventDefault() // Предотвращаем стандартное поведение backspace
             }
         }
     }
 }
 
-maskPhone('input[name="phone"]');
+maskPhone('input[name="phone"]')
 
 
 
@@ -672,3 +673,46 @@ document.querySelectorAll('form').forEach(function (form) {
         xhr.send(formData)
     })
 })
+
+// Modal window
+
+function closeModal(modalSelector) {
+    const modal = document.querySelector(modalSelector)
+    modal.classList.add('hide')
+    modal.classList.remove('show')
+    document.body.style.overflow = ''
+}
+
+function openModal(modalSelector) {
+    const modal = document.querySelector(modalSelector)
+    modal.classList.add('show')
+    modal.classList.remove('hide')
+    document.body.style.overflow = 'hidden'
+
+}
+
+function modal(triggerSelector, modalSelector) {
+    // Modal
+
+    const modalTrigger = document.querySelectorAll(triggerSelector),
+        modal = document.querySelector(modalSelector)
+
+    modalTrigger.forEach(item => {
+        item.addEventListener('click', () => openModal(modalSelector))
+    })
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal || e.target.getAttribute('data-close') == '') {
+            closeModal(modalSelector)
+        }
+    })
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code === "Escape" && modal.classList.contains('show')) {
+            closeModal(modalSelector)
+        }
+    })
+
+}
+
+modal('[data-modal]', '.modal')

@@ -103,8 +103,8 @@
                                     <br>
                                     Мы проектируем и изготавливаем трансформаторные подстанции (КТП) любой мощности.
                                  </div>
-                                 <a href="https://wa.me/77074976199" target="_blank" class="hero__button">
-                                    <button class="hero__btn">Связаться с нами</button>
+                                 <a class="hero__button">
+                                    <button data-modal class="hero__btn">Связаться с нами</button>
                                  </a>
                               </div>
                            </div>
@@ -126,8 +126,8 @@
                                  <div class="hero__text">Поставляем и устанавливаем силовые трансформаторы для
                                     промышленных и жилых объектов. Обеспечиваем высокую надёжность и эффективность
                                     работы.</div>
-                                 <a href="https://wa.me/77074976199" target="_blank" class="hero__button">
-                                    <button class="hero__btn">Связаться с нами</button>
+                                 <a class="hero__button">
+                                    <button data-modal class="hero__btn">Связаться с нами</button>
                                  </a>
                               </div>
                            </div>
@@ -147,8 +147,8 @@
                               <div class="hero__descr">
                                  <div class="hero__text">Установка электрооборудования по проекту заказчика или типовым
                                     схемам завода.</div>
-                                 <a href="https://wa.me/77074976199" target="_blank" class="hero__button">
-                                    <button class="hero__btn">Связаться с нами</button>
+                                 <a class="hero__button">
+                                    <button data-modal class="hero__btn">Связаться с нами</button>
                                  </a>
                               </div>
                            </div>
@@ -721,31 +721,23 @@
          </div>
       </footer>
 
-      <form id="test-form">
-         <input type="text" name="phone" placeholder="Телефон">
-         <button type="submit">Отправить</button>
-      </form>
-
-      <script>
-         document.querySelector('#test-form').addEventListener('submit', function (e) {
-            e.preventDefault()
-            const phone = this.querySelector('[name="phone"]')
-            const value = phone.value.replace(/\D/g, '')
-
-            document.querySelectorAll('.error-message').forEach(el => el.remove())
-
-            if (value.length < 11) {
-               const error = document.createElement('div')
-               error.className = 'error-message'
-               error.textContent = 'Пожалуйста, введите свой номер телефона'
-               phone.parentNode.appendChild(error)
-               phone.focus()
-               return
-            }
-
-            alert('Форма прошла проверку')
-         });
-      </script>
+      <div class="modal">
+         <div class="modal__dialog">
+            <div class="modal__content">
+               <form action="#" id="modal-form">
+                  <div data-close class="modal__close">&times;</div>
+                  <div class="modal__title">Мы свяжемся с вами как можно быстрее!</div>
+                  <div class="form-grou">
+                     <input required placeholder="Ваше имя" name="name" type="text" class="modal__input">
+                  </div>
+                  <div class="form-grou">
+                     <input required placeholder="Ваш номер телефона" name="phone" type="phone" class="modal__input">
+                  </div>
+                  <button class="btn btn_dark btn_min">Перезвонить мне</button>
+               </form>
+            </div>
+         </div>
+      </div>
    </div>
 
    <script src="js/script.js"></script>
