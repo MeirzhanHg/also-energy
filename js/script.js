@@ -56,6 +56,37 @@ if (iconMenu) {
     })
 }
 
+// Прокрутка при клике
+
+const menuLinks = document.querySelectorAll('.menu__link[data-goto]');
+if (menuLinks.length > 0) {
+    menuLinks.forEach(menuLink => {
+        menuLink.addEventListener("click", onMenuLinkClick);
+    });
+
+    function onMenuLinkClick(e) {
+        const menuLink = e.target;
+        if (menuLink.dataset.goto && document.querySelector(menuLink.dataset.goto)) {
+            const gotoBlock = document.querySelector(menuLink.dataset.goto);
+            const gotoBlockValue = gotoBlock.getBoundingClientRect().top + pageYOffset - document.querySelector('header').offsetHeight;
+
+            if (iconMenu.classList.contains('_active')) {
+                document.body.classList.toggle('_lock');
+                iconMenu.classList.toggle('_active');
+                menuBody.classList.toggle('_active');
+            }
+
+            window.scrollTo({
+                top: gotoBlockValue,
+                behavior: "smooth"
+            });
+            e.preventDefault();
+        }
+    }
+}
+
+
+
 // SLIDER
 
 const sliders = (slides, dir, prev, next) => {
@@ -84,7 +115,6 @@ const sliders = (slides, dir, prev, next) => {
     showSlides(slideIndex)
 
     function plusSlides(n) {
-        console.log('click')
         showSlides(slideIndex += n)
     }
 
@@ -93,7 +123,7 @@ const sliders = (slides, dir, prev, next) => {
             nextBtn = document.querySelector(next)
 
         prevBtn.addEventListener('click', () => {
-            console.log('click')
+         
             plusSlides(-1)
             items[slideIndex - 1].classList.remove('slideInRight')
             items[slideIndex - 1].classList.add('slideInLeft')
@@ -590,7 +620,7 @@ function validateForm(formSelector) {
 
 // Подключаем к формам
 validateForm('#consultation-form')
-validateForm('#modal-form');
+validateForm('#modal-form')
 
 // Маска для телефона
 function maskPhone(inputSelector) {
@@ -650,29 +680,78 @@ maskPhone('input[name="phone"]')
 
 
 // Обработка формы
+const message = {
+    loading: 'img/form/spinner.svg',
+    success: 'Спасибо! Скоро мы с вами свяжемся',
+    failure: 'Что-то пошло не так!'
+}
 
 document.querySelectorAll('form').forEach(function (form) {
     form.addEventListener('submit', function (e) {
         e.preventDefault()
 
+        const statusMessage = document.createElement('img')
+        statusMessage.src = message.loading
+        statusMessage.style.cssText = `
+        display: block;
+        margin: 0 auto;
+    `
+        form.insertAdjacentElement('afterend', statusMessage)
+
         const xhr = new XMLHttpRequest()
         const formData = new FormData(form)
 
         xhr.open('POST', 'mailer/smart.php', true)
+
         xhr.onload = function () {
+
             if (xhr.status === 200) {
                 form.querySelectorAll('input').forEach(function (input) {
-                    console.log(input)
                     input.value = ''
-
                 })
 
+                showThanksModal(message.success)
                 form.reset()
+            } else {
+                showThanksModal(message.failure)
             }
+
+            console.timeEnd('formSend')
+
+            statusMessage.remove()
         }
+
+        xhr.onerror = function () {
+            showThanksModal(message.failure)
+            statusMessage.remove()
+        }
+        console.time('formSend')
         xhr.send(formData)
     })
 })
+
+function showThanksModal(message) {
+    const prevModalDialog = document.querySelector('.modal__dialog')
+
+    prevModalDialog.classList.add('hide')
+    openModal('.modal')
+
+    const thanksModal = document.createElement('div')
+    thanksModal.classList.add('modal__dialog')
+    thanksModal.innerHTML = `
+            <div class="modal__content">
+                <div class="modal__close" data-close>x</div>
+                <div class="modal__title">${message}</div>
+            </div>
+        `
+    document.querySelector('.modal').append(thanksModal)
+    setTimeout(() => {
+        thanksModal.remove()
+        prevModalDialog.classList.add('show')
+        prevModalDialog.classList.remove('hide')
+        closeModal('.modal')
+    }, 4000)
+}
 
 // Modal window
 
