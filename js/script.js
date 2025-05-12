@@ -464,7 +464,6 @@ function sliderCont(sliderContent, sliderListElem, trackSlider, slideItem, arrow
 
     slide()
 
-    console.log(slides)
     sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)'
     sliderList.classList.add('grab')
 
@@ -510,9 +509,9 @@ const images = () => {
 
     workSection.addEventListener('click', (e) => {
         e.preventDefault()
-        
+
         let target = e.target
-        console.log(target);
+        console.log(target)
 
         if (target && target.classList.contains('preview')) {
             imgPopup.style.display = 'flex'
@@ -544,3 +543,132 @@ function truncateText(selector, maxLength) {
 
 
 truncateText('.products__label', 95)
+
+// Валидация формы
+
+function validateForm(formSelector) {
+    const form = document.querySelector(formSelector);
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name = form.querySelector('input[name="name"]');
+        const phone = form.querySelector('input[name="phone"]');
+
+        let valid = true;
+        let errors = [];
+
+        // Очистка старых ошибок
+        form.querySelectorAll('.error-message').forEach(el => el.remove());
+
+        // Name
+        if (!name.value || name.value.trim().length < 2) {
+            valid = false;
+            showError(name, name.value ? 'Введите минимум 2 символа' : 'Пожалуйста, введите свое имя');
+        }
+
+        // Phone
+        if (!phone.value || !/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(phone.value)) {
+            valid = false;
+            showError(phone, 'Пожалуйста, введите свой номер телефона');
+        }
+
+    
+    });
+
+    function showError(input, message) {
+        const error = document.createElement('div');
+        error.className = 'error-message';
+        error.style.color = 'red';
+        error.style.fontSize = '14px';
+        error.style.marginTop = '5px';
+        error.textContent = message;
+        input.parentNode.appendChild(error);
+    }
+}
+
+// Подключаем к формам
+validateForm('#consultation-form');
+
+// Маска для телефона
+function maskPhone(inputSelector) {
+    const phoneInputs = document.querySelectorAll(inputSelector);
+
+    phoneInputs.forEach(input => {
+        input.addEventListener('input', onInput);
+        input.addEventListener('focus', onInput);
+        input.addEventListener('blur', onBlur);
+        input.addEventListener('keydown', onKeyDown); // Обработчик для backspace
+    });
+
+    function onInput(e) {
+        let input = e.target;
+        let value = input.value.replace(/\D/g, ''); // Убираем все нецифровые символы
+
+        if (value.startsWith('8')) value = '7' + value.slice(1); // Если начинается с 8, заменяем на 7
+        if (!value.startsWith('7')) value = '7' + value; // Если не начинается с 7, добавляем 7
+
+        let result = '+7 ('; // Маска
+        if (value.length > 1) result += value.slice(1, 4);
+        if (value.length >= 4) result += ') ' + value.slice(4, 7);
+        if (value.length >= 7) result += '-' + value.slice(7, 9);
+        if (value.length >= 9) result += '-' + value.slice(9, 11);
+
+        input.value = result;
+    }
+
+    function onBlur(e) {
+        let input = e.target;
+        const digits = input.value.replace(/\D/g, ''); // Получаем только цифры
+
+        // Если длина меньше 10 символов (не полный номер), не очищаем поле
+        if (digits.length < 10) {
+            // Оставляем поле как есть, без очистки
+        }
+    }
+
+    function onKeyDown(e) {
+        let input = e.target;
+        if (e.key === "Backspace") {
+            let value = input.value;
+            const cursorPosition = input.selectionStart;
+
+            // Убираем дефисы, пробелы и скобки при backspace
+            if (value[cursorPosition - 1] === '-' || value[cursorPosition - 1] === ' ' || value[cursorPosition - 1] === '(' || value[cursorPosition - 1] === ')') {
+                input.value = value.slice(0, cursorPosition - 1) + value.slice(cursorPosition);
+                input.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
+                e.preventDefault(); // Предотвращаем стандартное поведение backspace
+            }
+        }
+    }
+}
+
+maskPhone('input[name="phone"]');
+
+
+
+// Обработка формы
+
+document.querySelectorAll('form').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault()
+
+        const xhr = new XMLHttpRequest()
+        const formData = new FormData(form)
+
+        xhr.open('POST', 'mailer/smart.php', true)
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                form.querySelectorAll('input').forEach(function (input) {
+                    console.log(input)
+                    input.value = ''
+
+                })
+
+                form.reset()
+            }
+        }
+        xhr.send(formData)
+    })
+})

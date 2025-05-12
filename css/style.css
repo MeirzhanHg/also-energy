@@ -1056,8 +1056,13 @@ body .menu__item .menu__arrow {
    display: flex;
    flex-wrap: wrap;
    gap: 15px;
+   align-items: flex-start;
+}
+
+.form_bnt-center {
+   display: flex;
+   align-items: center;
    justify-content: center;
-   align-items: flex-end;
 }
 
 .form-group {
@@ -1097,7 +1102,11 @@ body .menu__item .menu__arrow {
 .btn_dark:hover {
    background-color: #17433c;
 }
-
+ .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
 /* FOOTER */
 
 .footer {
