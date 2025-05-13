@@ -58,34 +58,79 @@ if (iconMenu) {
 
 // Прокрутка при клике
 
-const menuLinks = document.querySelectorAll('.menu__link[data-goto]');
+const menuLinks = document.querySelectorAll('.menu__link[data-goto]')
 if (menuLinks.length > 0) {
     menuLinks.forEach(menuLink => {
-        menuLink.addEventListener("click", onMenuLinkClick);
-    });
+        menuLink.addEventListener("click", onMenuLinkClick)
+    })
 
     function onMenuLinkClick(e) {
-        const menuLink = e.target;
+        const menuLink = e.target
         if (menuLink.dataset.goto && document.querySelector(menuLink.dataset.goto)) {
-            const gotoBlock = document.querySelector(menuLink.dataset.goto);
-            const gotoBlockValue = gotoBlock.getBoundingClientRect().top + pageYOffset - document.querySelector('header').offsetHeight;
+            const gotoBlock = document.querySelector(menuLink.dataset.goto)
+            const gotoBlockValue = gotoBlock.getBoundingClientRect().top + pageYOffset - document.querySelector('header').offsetHeight
 
             if (iconMenu.classList.contains('_active')) {
-                document.body.classList.toggle('_lock');
-                iconMenu.classList.toggle('_active');
-                menuBody.classList.toggle('_active');
+                document.body.classList.toggle('_lock')
+                iconMenu.classList.toggle('_active')
+                menuBody.classList.toggle('_active')
             }
 
             window.scrollTo({
                 top: gotoBlockValue,
                 behavior: "smooth"
-            });
-            e.preventDefault();
+            })
+            e.preventDefault()
         }
     }
 }
 
+function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass) {
+    // Tabs
 
+    const tabs = document.querySelectorAll(tabsSelector),
+        tabsContent = document.querySelectorAll(tabsContentSelector),
+        tabsParent = document.querySelector(tabsParentSelector)
+
+    function hideTabContent() {
+        tabsContent.forEach(item => {
+            item.style.display = "none"
+        })
+
+        tabs.forEach(item => {
+            item.classList.remove(activeClass)
+        })
+    }
+
+    function showTabContent(i = 0) {
+        tabsContent[i].style.display = "flex"
+        tabs[i].classList.add(activeClass)
+    }
+
+    hideTabContent()
+    showTabContent()
+
+    tabsParent.addEventListener("click", (event) => {
+        const target = event.target
+
+        if (target && target.classList.contains(tabsSelector.slice(1))) {
+            tabs.forEach((item, i) => {
+
+                if (target == item) {
+                    hideTabContent()
+                    showTabContent(i)
+                }
+            })
+        }
+    })
+}
+
+if (document.querySelector('.goods__nav')) {
+    tabs('.goods__label', '.goods__items', '.goods__nav', "tabheader__item_active")
+}
+
+
+// tabs('.tabheader__item', '.tabcontent', '.tabheader__items', "tabheader__item_active");
 
 // SLIDER
 
@@ -123,7 +168,7 @@ const sliders = (slides, dir, prev, next) => {
             nextBtn = document.querySelector(next)
 
         prevBtn.addEventListener('click', () => {
-         
+
             plusSlides(-1)
             items[slideIndex - 1].classList.remove('slideInRight')
             items[slideIndex - 1].classList.add('slideInLeft')
@@ -161,7 +206,9 @@ const sliders = (slides, dir, prev, next) => {
 
 }
 
-sliders('.slider-item', '', '.main-prev-btn', '.main-next-btn')
+if (document.querySelector('.main-prev-btn')) {
+    sliders('.slider-item', '', '.main-prev-btn', '.main-next-btn')
+}
 
 // Много слайдера
 function sliderMore(containerSlider, trackSlider, prevSlide, nextSlide, sliders, slideShowDefault, slidesShowWindow) {
@@ -272,9 +319,9 @@ function sliderMore(containerSlider, trackSlider, prevSlide, nextSlide, sliders,
     checkBtns()
 }
 
-sliderMore('.slider-container', '.slider-track', '.prev-btn', '.next-btn', '.box__item', 3, 2)
-
-
+if (document.querySelector('.slider-container')) {
+    sliderMore('.slider-container', '.slider-track', '.prev-btn', '.next-btn', '.box__item', 3, 2)
+}
 
 
 function sliderCont(sliderContent, sliderListElem, trackSlider, slideItem, arrow, prevBtn, nextBtn) {
@@ -521,7 +568,11 @@ function sliderCont(sliderContent, sliderListElem, trackSlider, slideItem, arrow
     })
 }
 
-sliderCont('.certificate__wrapper', '.slider-certificate', '.slider-track-certificate', '.certificate-box', '.certificate__btns', '.prev-btn-certificate', '.next-btn-certificate')
+if (document.querySelector('.certificate__wrapper')) {
+    sliderCont('.certificate__wrapper', '.slider-certificate', '.slider-track-certificate', '.certificate-box', '.certificate__btns', '.prev-btn-certificate', '.next-btn-certificate')
+
+}
+
 
 const images = () => {
     const imgPopup = document.createElement('div'),
@@ -557,22 +608,27 @@ const images = () => {
     })
 }
 
-images()
+if(document.querySelector('.certificate-page')) {
+    images()
+}
 
 // СОКРАТИТЬ ТЕКСТ
 
-function truncateText(selector, maxLength) {
-    const elements = document.querySelectorAll(selector)
+function truncateTextResponsive(selector, mobileLength, desktopLength) {
+    const elements = document.querySelectorAll(selector);
+    const maxLength = window.innerWidth <= 768 ? mobileLength : desktopLength;
+
     elements.forEach(el => {
-        const text = el.textContent.trim()
+        let text = el.textContent.replace(/\s+/g, ' ').trim();
         if (text.length > maxLength) {
-            el.textContent = text.slice(0, maxLength) + '...'
+            el.textContent = text.slice(0, maxLength) + '...';
         }
-    })
+    });
 }
 
 
-truncateText('.products__label', 95)
+truncateTextResponsive('.products__label', 40, 95)
+truncateTextResponsive('.goods__subtitle', 40, 125)
 
 // Валидация формы
 
