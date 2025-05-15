@@ -358,12 +358,7 @@ body .menu__item .menu__arrow {
 
 .main-next-btn {
    right: -160px;
-
 }
-
-.main-prev-btn:hover {}
-
-.main-next-btn:hover {}
 
 .hero__column {
    padding: 0 20px;
@@ -420,8 +415,6 @@ body .menu__item .menu__arrow {
 }
 
 /* PRODUCTS */
-.products {}
-
 .products-page {
    padding: 100px 0;
    background-color: #f5f5fb;
@@ -531,11 +524,6 @@ body .menu__item .menu__arrow {
 .products__items {
    display: flex;
    margin: 0 10px 20px 10px;
-}
-
-.products__item {
-   /* padding: 0 10px; */
-
 }
 .products__block {
    background-color: #fff;
@@ -965,17 +953,11 @@ body .menu__item .menu__arrow {
    align-items: center;
 }
 
-.certificate__row {
-   /* flex: 0 1 50%; */
-}
-
 .certificate__wrapper {
    max-width: 860px;
-
 }
 
 .certificate__container {
-   /* width: auto; */
    overflow: hidden;
 }
 
@@ -1635,8 +1617,6 @@ body .menu__item .menu__arrow {
       width: 300px;
    }
 
-   .hero__body {}
-
    .header_wrapper {
       flex-wrap: wrap;
       flex-direction: column;
@@ -1923,16 +1903,6 @@ body .menu__item .menu__arrow {
 
    .certificate__title {
       font-size: 28px;
-   }
-
-   .certificate__row-1 {}
-
-   .certificate__row {
-      /* flex: 0 1 100%; */
-   }
-
-   .certificate__item {
-      /* width: 360px; */
    }
 
    .certificate__img {
