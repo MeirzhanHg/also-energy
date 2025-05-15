@@ -1115,6 +1115,7 @@ body .menu__item .menu__arrow {
 }
 
 .form_bnt-center {
+   margin: 15px 0px 0px 0px;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -1199,7 +1200,6 @@ body .menu__item .menu__arrow {
 
 .footer-logo .logo-icon {
    width: 72px;
-   height: 72px;
    margin-right: 10px;
 }
 
@@ -2284,6 +2284,9 @@ body .menu__item .menu__arrow {
 
    .goods__suptitle {
       margin: 0px 0px 25px 0px;
+   }
+   .form_bnt-center {
+      margin: 0px 0px 0px 0px;
    }
 }
 
