@@ -320,8 +320,7 @@ body .menu__item .menu__arrow {
    height: 100%;
    top: 0;
    right: 0;
-   background-color: rgba(0, 0, 0, 0.7);
-
+   background-color: rgba(0, 0, 0, 0.8);
 }
 
 .header__content {
@@ -387,7 +386,8 @@ body .menu__item .menu__arrow {
    font-size: 24px;
    color: #fff;
    margin: 0px 0px 40px 0px;
-   line-height: 1.4
+   line-height: 1.4;
+   font-weight: 500;
 }
 
 .hero__btn {
@@ -525,6 +525,7 @@ body .menu__item .menu__arrow {
    display: flex;
    margin: 0 10px 20px 10px;
 }
+
 .products__block {
    background-color: #fff;
    padding: 20px;
@@ -567,7 +568,7 @@ body .menu__item .menu__arrow {
    line-height: 1.4em;
 
    padding: 20px 0px 0px 0px;
-   
+
 }
 
 /* substation */
@@ -578,15 +579,15 @@ body .menu__item .menu__arrow {
 
    background-repeat: no-repeat;
 
-   background-size: cover;
-   padding: 80px 0px 180px 0px;
+   background-size: 100% 100%;
+   padding: 50px 0px 120px 0px;
 }
 
 .substation__title {
    text-align: center;
-   margin-bottom: 15px;
+   margin-bottom: 10px;
    position: relative;
-   font-size: 50px;
+   font-size: 48px;
    font-weight: bold;
    color: #fff;
    padding-bottom: 10px;
@@ -624,8 +625,9 @@ body .menu__item .menu__arrow {
 .substation__text {
    text-align: center;
    color: #fff;
-   font-size: 17px;
-   line-height: 1.8em;
+   font-size: 20px;
+   line-height: 1.4em;
+   font-weight: 500;
 }
 
 /* project */
@@ -638,10 +640,10 @@ body .menu__item .menu__arrow {
 
 .project__column {
    cursor: pointer;
-   margin-top: 45px;
+   margin-top: 65px;
    display: flex;
    background: #f5f5fb;
-   transition: all .3s ease-out;
+   transition: all .5s ease-out;
 }
 
 .project__column:hover {
@@ -675,7 +677,7 @@ body .menu__item .menu__arrow {
    left: 0;
    object-fit: cover;
 
-   transition: all .3s ease-out;
+   transition: all .5s ease-out;
 }
 
 .project__column:hover .project__img img {
@@ -703,12 +705,12 @@ body .menu__item .menu__arrow {
 .project__title {
    font-size: 28px;
    font-weight: bold;
-   margin-bottom: 10px;
+   margin-bottom: 20px;
 }
 
 .project__descr {
    font-size: 17px;
-   line-height: 1.8em;
+   line-height: calc(24 / 17 * 100%);
 }
 
 .project__button {
@@ -760,7 +762,7 @@ body .menu__item .menu__arrow {
    height: 100%;
    top: 0;
    right: 0;
-   background-color: rgba(0, 0, 0, 0.8);
+   background-color: rgb(0 0 0 / 86%);
 }
 
 .about__title {
@@ -1097,7 +1099,7 @@ body .menu__item .menu__arrow {
 }
 
 .form_bnt-center {
-   margin: 15px 0px 0px 0px;
+   margin: 20px 0px 0px 0px;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -1111,8 +1113,8 @@ body .menu__item .menu__arrow {
 
 .order__input {
    padding: 12px 16px;
-   font-size: 14px;
-   border: 1px solid #ddd;
+   font-size: 16px;
+   border: 1px solid #1a817d;
    border-radius: 8px;
    outline: none;
    min-width: 180px;
@@ -1122,7 +1124,7 @@ body .menu__item .menu__arrow {
 .form-group label {
    font-size: 13px;
    color: #666;
-   margin-bottom: 5px;
+   margin-bottom: 8px;
    text-align: left;
 }
 
@@ -1400,6 +1402,7 @@ body .menu__item .menu__arrow {
    font-size: 18px;
    line-height: 1.4em;
    color: #fff;
+   font-weight: 500;
 }
 
 .goods__body {
@@ -1464,44 +1467,46 @@ body .menu__item .menu__arrow {
 .goods__img img {
    transition: all .5s ease 0s;
 }
+
 .whatsapp-float {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #25D366, #128C7E);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-  z-index: 1000;
-  animation: fadeInUp 0.6s ease-out;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+   position: fixed;
+   bottom: 25px;
+   right: 25px;
+   width: 60px;
+   height: 60px;
+   background: linear-gradient(135deg, #25D366, #128C7E);
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+   z-index: 1000;
+   animation: fadeInUp 0.6s ease-out;
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .whatsapp-float:hover {
-  transform: scale(1.1);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+   transform: scale(1.1);
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
 .whatsapp-float svg {
-  width: 32px;
-  height: 32px;
-  fill: white;
+   width: 32px;
+   height: 32px;
+   fill: white;
 }
 
 /* Анимация появления */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+   from {
+      opacity: 0;
+      transform: translateY(40px);
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
 }
 
 
@@ -1969,7 +1974,7 @@ body .menu__item .menu__arrow {
    }
 
    .project__img {
-      padding: 0px 0px 60% 0px;
+      padding: 0px 0px 80% 0px;
    }
 
    .project__info {
@@ -1990,6 +1995,7 @@ body .menu__item .menu__arrow {
 
    .substation__body {
       padding: 40px 0px 40px 0px;
+      background-size: cover
    }
 
    .substation__title {
@@ -2255,10 +2261,8 @@ body .menu__item .menu__arrow {
    .goods__suptitle {
       margin: 0px 0px 25px 0px;
    }
+
    .form_bnt-center {
       margin: 0px 0px 0px 0px;
    }
 }
-
-
-
