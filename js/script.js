@@ -90,6 +90,24 @@ if (menuLinks.length > 0) {
 function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass) {
     // Tabs
 
+    
+    let blockId = window.location.hash
+    const regExp = /\i|d|#|\$/g
+
+   
+
+    let resId = blockId.replace(regExp, '')
+
+     window.addEventListener('hashchange', () => {
+        console.log('hash');
+        blockId = window.location.hash
+        resId = blockId.replace(regExp, '')
+
+        console.log(resId);
+        hideTabContent()
+        showTabContent(0, tabsParent)
+    })
+
     const tabs = document.querySelectorAll(tabsSelector),
         tabsContent = document.querySelectorAll(tabsContentSelector),
         tabsParent = document.querySelector(tabsParentSelector)
@@ -104,35 +122,54 @@ function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass
         })
     }
 
-    function showTabContent(i = 0) {
-        tabsContent[i].style.display = "flex"
-        tabs[i].classList.add(activeClass)
+    // tabsContent - товарлар
+    // tabs - навигация
+    function showTabContent(i = 0, item) {
+
+
+        if (resId.length) {
+
+            tabsContent.forEach((el, j) => {
+
+                if (el.classList.contains(resId)) {
+                    el.style.display = "flex"
+                    tabs[j].classList.add(activeClass)
+                }
+            })
+        } else {
+            tabsContent[i].style.display = "flex"
+            tabs[i].classList.add(activeClass)
+        }
+
+
     }
 
     hideTabContent()
-    showTabContent()
+    showTabContent(0, tabsParent)
 
     tabsParent.addEventListener("click", (event) => {
         const target = event.target
 
         if (target && target.classList.contains(tabsSelector.slice(1))) {
+            resId = ''
+
             tabs.forEach((item, i) => {
 
                 if (target == item) {
                     hideTabContent()
-                    showTabContent(i)
+                    showTabContent(i, item)
                 }
             })
         }
     })
 }
 
+
+
 if (document.querySelector('.goods__nav')) {
     tabs('.goods__label', '.goods__items', '.goods__nav', "tabheader__item_active")
 }
 
-
-// tabs('.tabheader__item', '.tabcontent', '.tabheader__items', "tabheader__item_active");
 
 // SLIDER
 
@@ -197,13 +234,18 @@ const sliders = (slides, dir, prev, next) => {
             }, 5000)
         }
     }
-    activateAnimation()
+
+    if (window.innerWidth <= 768) { // <=768px — мобильные устройства
+        activateAnimation()
+    }
 
     items[0].parentNode.addEventListener('mouseenter', () => {
         clearInterval(paused)
     })
     items[0].parentNode.addEventListener('mouseleave', () => {
-        activateAnimation()
+        if (window.innerWidth <= 768) { // <=768px — мобильные устройства
+            activateAnimation()
+        }
     })
 
 }
@@ -283,7 +325,11 @@ function sliderMore(containerSlider, trackSlider, prevSlide, nextSlide, sliders,
     // ............................
 
     items.forEach((item) => {
-        item.style.minWidth = `${itemWidth - 15}px`
+        if(window.innerWidth <= 768) {
+            item.style.minWidth = `${itemWidth - 10}px`
+        } else{ 
+            item.style.minWidth = `${itemWidth - 30}px`
+        }
     })
 
     btnNext.addEventListener('click', () => {
@@ -610,22 +656,22 @@ const images = () => {
     })
 }
 
-if(document.querySelector('.certificate-page')) {
+if (document.querySelector('.certificate-page')) {
     images()
 }
 
 // СОКРАТИТЬ ТЕКСТ
 
 function truncateTextResponsive(selector, mobileLength, desktopLength) {
-    const elements = document.querySelectorAll(selector);
-    const maxLength = window.innerWidth <= 768 ? mobileLength : desktopLength;
+    const elements = document.querySelectorAll(selector)
+    const maxLength = window.innerWidth <= 768 ? mobileLength : desktopLength
 
     elements.forEach(el => {
-        let text = el.textContent.replace(/\s+/g, ' ').trim();
+        let text = el.textContent.replace(/\s+/g, ' ').trim()
         if (text.length > maxLength) {
-            el.textContent = text.slice(0, maxLength) + '...';
+            el.textContent = text.slice(0, maxLength) + '...'
         }
-    });
+    })
 }
 
 

@@ -161,6 +161,7 @@ main {
 .header_wrapper {
    display: flex;
    align-items: center;
+   justify-content: space-between;
    min-height: 90px;
 }
 
@@ -191,8 +192,12 @@ main {
 .menu__link {
    color: #fff;
    font-size: 18px;
+   transition: all .3s;
 }
 
+.menu__link:hover {
+   text-decoration: underline;
+}
 
 .menu__sub-list {
    position: absolute;
@@ -341,22 +346,32 @@ body .menu__item .menu__arrow {
    position: absolute;
    top: 50%;
    transform: translateY(-50%);
-   width: 40px;
-   height: 40px;
+   /* width: 40px; */
+   /* height: 40px; */
+   padding: 5px;
    border: none;
-   padding: 0;
+   border-radius: 100%;
    z-index: 5;
-   background-color: transparent;
+   background-color: rgb(190, 191, 192, 0.31);
+   transition: all .3s;
+}
+
+.main-slider-btn:hover {
+   background-color: rgb(26 129 125);
+}
+
+.main-slider-btn img {
+   width: 52px;
 }
 
 .main-prev-btn {
-   left: -160px;
+   left: -120px;
 
-   transform: rotate(180deg);
+   transform: translateY(-50%) rotate(180deg);
 }
 
 .main-next-btn {
-   right: -160px;
+   right: -120px;
 }
 
 .hero__column {
@@ -376,14 +391,14 @@ body .menu__item .menu__arrow {
 .hero__title {
    color: #fff;
    text-transform: uppercase;
-   font-size: 60px;
+   font-size: 46px;
    font-weight: 700;
    margin: 0px 0px 40px 0px;
    line-height: 1;
 }
 
 .hero__text {
-   font-size: 24px;
+   font-size: 22px;
    color: #fff;
    margin: 0px 0px 40px 0px;
    line-height: 1.4;
@@ -412,6 +427,10 @@ body .menu__item .menu__arrow {
 
 .hero__img img {
    width: 483px;
+}
+
+.hero__img-2 img {
+   width: 323px;
 }
 
 /* PRODUCTS */
@@ -523,7 +542,7 @@ body .menu__item .menu__arrow {
 
 .products__items {
    display: flex;
-   margin: 0 10px 20px 10px;
+   /* margin: 0 10px 20px 10px; */
 }
 
 .products__block {
@@ -534,11 +553,31 @@ body .menu__item .menu__arrow {
    flex-direction: column;
 }
 
+.product__btn {
+   cursor: pointer;
+   text-align: center;
+   display: block;
+   flex: 0 0 auto;
+   font-size: 14px;
+   color: #000;
+   border: 1px solid #000;
+   padding: 13px 0px;
+   margin-top: 20px;
+   transition: all .2s;
+   background-color: transparent;
+}
+
+.product__btn:hover {
+   /* background-color: rgb(26 129 125);
+   color: #fff; */
+   border-radius: 20px;
+}
+
 .products__img {
    position: relative;
    flex: 1 1 auto;
    display: block;
-   padding: 0px 0px 85% 0px;
+   padding: 0px 0px 70% 0px;
 }
 
 .products__img img {
@@ -556,13 +595,14 @@ body .menu__item .menu__arrow {
 
 .products__label {
    color: #000;
-   font-size: 16px;
-   line-height: 1.4em;
+   font-size: 20px;
+   line-height: 1.2;
    font-weight: 500;
    margin: 25px 0px 0px 0px;
 }
 
 .goods__subtitle {
+   color: #000;
    flex: 1 1 auto;
    font-size: 16px;
    line-height: 1.4em;
@@ -853,9 +893,10 @@ body .menu__item .menu__arrow {
 
 .slider-track {
    display: flex;
-   column-gap: 16px;
    transition: 0.2s;
+   column-gap: 30px;
 }
+
 
 .certificate__row-1 {
    position: relative;
@@ -867,7 +908,7 @@ body .menu__item .menu__arrow {
    display: flex;
    align-items: center;
    justify-content: end;
-   margin-bottom: 15px;
+   margin-bottom: 25px;
 }
 
 .slider__btn {
@@ -1157,6 +1198,10 @@ body .menu__item .menu__arrow {
    padding: 60px 20px 20px;
 }
 
+.footer__link {
+   color: #fff;
+}
+
 .footer-container {
    display: flex;
    justify-content: space-between;
@@ -1372,6 +1417,7 @@ body .menu__item .menu__arrow {
 /* goods__items */
 .goods {
    padding: 30px 0px 60px 0px;
+   margin-bottom: 70px;
 
    background-color: rgba(247, 247, 247, 1);
 }
@@ -1432,36 +1478,37 @@ body .menu__item .menu__arrow {
    flex: 0 1 25%;
    padding: 20px 15px 20px 15px;
    transition: all .3s;
-
-   border-bottom: 2px solid #c5c5c5;
+   background-color: #fff;
+   border-right: 1px solid #bfc3c3;
 }
 
 .goods-page {
+   padding: 85px 0px;
    background-image: url('../img/goods.jpg')
 }
 
-.goods__label:hover {
-   border-bottom: 2px solid #1a817d;
-}
 
 .tabheader__item_active {
-   color: #1a817d;
-   border-bottom: 2px solid #1a817d;
-
+   color: #fff;
+   background-color: #3b7a77;
    font-weight: 500
 }
 
 .goods__block {
    height: 100%;
    cursor: pointer;
-   transition: all .5s ease 0s;
+   transition: all .3s ease 0s;
 
-   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 
    flex: 1 1 auto;
    display: flex;
    flex-direction: column;
    padding: 15px;
+}
+
+.goods__block:hover {
+   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
 }
 
 .goods__img img {
@@ -1496,6 +1543,94 @@ body .menu__item .menu__arrow {
    fill: white;
 }
 
+/* INFO BLOCK */
+.info__block {
+   padding: 70px 0;
+}
+
+.info__title {
+   font-size: 36px;
+   font-weight: 500;
+   margin-bottom: 50px;
+}
+
+.info__column {
+   display: flex;
+}
+
+.info__row {
+   flex: 0 1 50%;
+   padding: 30px 0 50px 0;
+
+}
+
+.info__row:not(:last-child) {
+   border-right: 2px solid #f5f5fb;
+}
+
+.info__descr {
+   font-size: 16px;
+   line-height: 1.4;
+}
+
+.info__img {
+   text-align: center;
+}
+.info__img img {
+   width: 268px;
+}
+.info__line {
+   width: 100%;
+   height: 2px;
+   background-color: #f5f5fb;
+}
+
+.info__character {
+   font-weight: 500;
+   font-size: 24px;
+   margin: 30px 0;
+}
+
+.info__target {
+   font-size: 24px;
+   margin-bottom: 20px;
+   font-weight: 500;
+}
+
+.info__list {
+   margin-bottom: 40px;
+}
+
+.info__elem {
+   position: relative;
+   font-size: 16px;
+   padding-left: 20px;
+   margin-bottom: 15px;
+}
+
+.info__elem::before {
+   content: "";
+   position: absolute;
+   left: 0;
+   top: 4px;
+   width: 6px;
+   height: 6px;
+   border-radius: 100%;
+   background-color: #000;
+}
+
+.info__back {
+   display: flex;
+   align-items: center;
+   margin-bottom: 20px;
+   color: #000;
+}
+.info__ico {
+   margin: 2px 3px 0 0;
+}
+.info__back:hover{
+   text-decoration: underline;
+}
 /* Анимация появления */
 @keyframes fadeInUp {
    from {
@@ -1514,11 +1649,11 @@ body .menu__item .menu__arrow {
 /* MEDIA */
 @media (max-width: 1400px) {
    .hero__title {
-      font-size: 56px;
+      font-size: 40px;
    }
 
    .hero__text {
-      font-size: 22px;
+      font-size: 20px;
    }
 
    .hero__descr {
@@ -1536,7 +1671,7 @@ body .menu__item .menu__arrow {
 
 @media (max-width: 1240px) {
    .hero__title {
-      font-size: 50px;
+      font-size: 38px;
    }
 
    .hero__body {
@@ -1673,7 +1808,7 @@ body .menu__item .menu__arrow {
    .hero__title {
       max-width: 500px;
 
-      font-size: 40px;
+      font-size: 32px;
    }
 
    .hero__descr {
@@ -1784,7 +1919,7 @@ body .menu__item .menu__arrow {
    .hero__title {
       max-width: 500px;
       margin: 0px 0px 25px 0px;
-      font-size: 40px;
+      font-size: 32px;
    }
 
    .hero__descr {
@@ -1804,12 +1939,48 @@ body .menu__item .menu__arrow {
 /* HEADER MENU ADAPTIVE */
 
 @media (max-width: 767px) {
+   .info__img img {
+      width: 153px;
+   }
+   .product__btn {
+      padding: 10px 0;
+   }
+
+   .slider-track {
+      column-gap: 10px;
+   }
+
+   .info__line {
+      display: none;
+   }
+
+   .info__title {
+      font-size: 26px;
+      font-weight: 500;
+      margin-bottom: 30px;
+   }
+
+   .info__column {
+      display: flex;
+      flex-wrap: wrap;
+   }
+
+   .info__row {
+      flex: 1 1 100%;
+      padding: 15px 0 20px 0;
+   }
+
+   .info__row:not(:last-child) {
+      border-right: unset;
+   }
+
    .products__img {
       padding: 0px 0px 100% 0px;
    }
 
    .goods {
       padding: 20px 0px 30px 0px;
+      margin-bottom: 40px;
       background-color: rgba(247, 247, 247, 1);
    }
 
@@ -2018,13 +2189,9 @@ body .menu__item .menu__arrow {
    }
 
 
-   /* .products__item  {
-      margin: 0px 20px 0px 20px;
-
-      padding: 0;
-      flex: 1 1 100%;
-      margin-bottom: 30px;
-   } */
+   .goods-page {
+      padding: 55px 0;
+   }
 
    .products__title {
       font-size: 29px;
@@ -2049,7 +2216,7 @@ body .menu__item .menu__arrow {
    }
 
    .hero {
-      padding: 70px 0;
+      padding: 55px 0;
       background: url('../img/bg.jpeg') 0 0/auto 100% no-repeat;
    }
 
@@ -2063,6 +2230,10 @@ body .menu__item .menu__arrow {
       max-width: 100%;
       margin: 0px 0px 35px 0px;
       font-size: 29px;
+   }
+
+   .hero__title-2 {
+      font-size: 24px;
    }
 
    .hero__descr {
@@ -2081,6 +2252,10 @@ body .menu__item .menu__arrow {
 
    .hero__img img {
       width: 283px;
+   }
+
+   .hero__img-2 img {
+      width: 183px;
    }
 
    .menu__icon {
